@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+       :root {
+    --primary: #0d6efd;
+    --primary-dark: #0b5ed7;
+    --secondary: #6c757d;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #adb5bd;
+    --light-gray: #dee2e6;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    --transition: all 0.2s ease-in-out;
+}
+
+body {
+    background: linear-gradient(to right, #e9ecef, #f8f9fa);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: var(--dark);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    max-width: 840px;
+    width: 100%;
+    background: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1rem;
+    opacity: 0.95;
+}
+
+.converter-card {
+    padding: 35px;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    color: var(--dark);
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background: var(--light);
+    border-radius: var(--border-radius);
+    border: 1.5px solid var(--light-gray);
+    transition: var(--transition);
+}
+
+.input-group:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.15);
+}
+
+.input-group i {
+    width: 48px;
+    text-align: center;
+    color: var(--gray);
+    font-size: 1.1rem;
+}
+
+input[type="number"],
+select {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    background: transparent;
+    font-size: 1rem;
+    outline: none;
+}
+
+.currency-fields {
+    display: grid;
+    grid-template-columns: 1fr 50px 1fr;
+    gap: 15px;
+    align-items: end;
+    margin-bottom: 30px;
+}
+
+.swap-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--light-gray);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    color: var(--dark);
+}
+
+.swap-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+button[type="submit"]:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(13, 110, 253, 0.2);
+}
+
+.result-container {
+    text-align: center;
+    margin-top: 35px;
+    padding: 25px;
+    background: #f1f3f5;
+    border-radius: var(--border-radius);
+}
+
+.result-container h2 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.conversion-rate {
+    font-size: 1rem;
+    color: var(--gray);
+}
+
+.popular-currencies {
+    margin-top: 40px;
+}
+
+.popular-currencies h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    position: relative;
+}
+
+.popular-currencies h3::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: var(--primary);
+    margin: 10px auto 0;
+    border-radius: 3px;
+}
+
+.currency-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.currency-item {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 15px;
+    text-align: center;
+    border: 1px solid var(--light-gray);
+    transition: var(--transition);
+}
+
+.currency-item:hover {
+    box-shadow: var(--box-shadow);
+}
+
+.currency-flag {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.currency-code {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.currency-name {
+    font-size: 0.85rem;
+    color: var(--gray);
+}
+
+footer {
+    text-align: center;
+    padding: 18px;
+    font-size: 0.9rem;
+    color: var(--gray);
+    background: #f1f3f5;
+}
+
+.error-message {
+    background: #ffe3e3;
+    color: #d6336c;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .currency-fields {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 50px 1fr;
+    }
+
+    .swap-btn {
+        margin: 0 auto;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-exchange-alt"></i> Currency Converter</h1>
+            <p>Convert currencies with real-time exchange rates</p>
+        </header>
+        
+        <div class="converter-card">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <div class="input-group">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <input type="number" id="amount" name="amount" step="0.01" required 
+                               placeholder="Enter amount" value="{{ amount|default:'100' }}">
+                    </div>
+                </div>
+                
+                <div class="currency-fields">
+                    <div class="form-group">
+                        <label for="from_currency">From Currency</label>
+                        <div class="input-group">
+                            <i class="fas fa-flag"></i>
+                            <select id="from_currency" name="from_currency" required>
+                                {% for currency in currencies %}
+                                <option value="{{ currency }}" {% if from_currency == currency %}selected{% endif %}>{{ currency }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="swap-btn" onclick="swapCurrencies()">
+                        <i class="fas fa-exchange-alt"></i>
+                    </button>
+                    
+                    <div class="form-group">
+                        <label for="to_currency">To Currency</label>
+                        <div class="input-group">
+                            <i class="fas fa-flag"></i>
+                            <select id="to_currency" name="to_currency" required>
+                                {% for currency in currencies %}
+                                <option value="{{ currency }}" {% if to_currency == currency %}selected{% endif %}>{{ currency }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit">
+                    <i class="fas fa-calculator"></i> Convert Currency
+                </button>
+            </form>
+
+            {% if error %}
+             <div class="error-message">
+                      <i class="fas fa-exclamation-circle"></i> {{ error }}
+              </div>
+            {% endif %}
+
+            
+            {% if result %}
+            <div class="result-container">
+                <h2>{{ amount }} {{ from_currency }} = {{ result }} {{ to_currency }}</h2>
+                <p class="conversion-rate">Real-time exchange rate</p>
+            </div>
+            {% elif result == "Conversion failed" %}
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i> Conversion failed. Please check your input and try again.
+            </div>
+            {% endif %}
+            
+            <div class="popular-currencies">
+                <h3>Supported Currencies</h3>
+                <div class="currency-grid">
+                    <div class="currency-item">
+                        <div class="currency-flag">🇺🇸</div>
+                        <div class="currency-code">USD</div>
+                        <div class="currency-name">US Dollar</div>
+                    </div>
+                    <div class="currency-item">
+                        <div class="currency-flag">🇪🇺</div>
+                        <div class="currency-code">EUR</div>
+                        <div class="currency-name">Euro</div>
+                    </div>
+                    <div class="currency-item">
+                        <div class="currency-flag">🇬🇧</div>
+                        <div class="currency-code">GBP</div>
+                        <div class="currency-name">British Pound</div>
+                    </div>
+                    <div class="currency-item">
+                        <div class="currency-flag">🇯🇵</div>
+                        <div class="currency-code">JPY</div>
+                        <div class="currency-name">Japanese Yen</div>
+                    </div>
+                    <div class="currency-item">
+                        <div class="currency-flag">🇨🇦</div>
+                        <div class="currency-code">CAD</div>
+                        <div class="currency-name">Canadian Dollar</div>
+                    </div>
+                    <div class="currency-item">
+                        <div class="currency-flag">🇦🇺</div>
+                        <div class="currency-code">AUD</div>
+                        <div class="currency-name">Australian Dollar</div>
+                    </div>
+                    <div class="currency-item">
+                        <div class="currency-flag">🇨🇳</div>
+                        <div class="currency-code">CNY</div>
+                        <div class="currency-name">Chinese Yuan</div>
+                    </div>
+                    <div class="currency-item">
+                        <div class="currency-flag">🇮🇳</div>
+                        <div class="currency-code">INR</div>
+                        <div class="currency-name">Indian Rupee</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 Currency Converter | Real-time exchange rates</p>
+        </footer>
+    </div>
+</body>
+</html>
