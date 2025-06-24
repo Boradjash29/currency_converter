@@ -1,7 +1,8 @@
-# Currency Converter (Django)
+## Currency Converter (Django)
 
 A simple Django-based currency converter that lets users convert amounts between different currencies using the ExchangeRate-API.
 
+![image](https://github.com/user-attachments/assets/659cb8a2-6597-4ce4-9501-f22a4173eeb2)
 ---
 
 ## 🚀 Features
@@ -21,13 +22,27 @@ A simple Django-based currency converter that lets users convert amounts between
    git clone https://github.com/Boradjash29/currency_converter.git
    cd currency_converter/currency_project
    ```
-2. **Run database migrations:**
+
+2. **Create & activate a virtual environment:**
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows, use `.\venv\Scripts\activate`
+   ```
+
+3. **Install dependencies:**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Run database migrations:**
 
    ```bash
    python manage.py migrate
    ```
 
-3. **Start the development server:**
+5. **Start the development server:**
 
    ```bash
    python manage.py runserver
@@ -158,7 +173,7 @@ return render(request, 'converter/index.html', {
 
 ---
 
-## 🔧 Improvements
+## 🔧  Improvements
 
 * **API Resilience**: Use a fallback API or catch downtime gracefully.
 * **Input Validations**: Add form validation via Django Forms.
