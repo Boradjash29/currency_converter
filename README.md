@@ -166,15 +166,3 @@ return render(request, 'converter/index.html', {
 * **Extended Support**: Add more currencies or display exchange rate history.
 
 ---
-
-### Enjoy Coding! 🎉
-
-Enhance, iterate, and make it your own. Let me know if you'd like help adding features like caching, custom styling, or charting exchange rates.
-
----
-
-Feel free to copy-paste this markdown into your GitHub repo's `README.md`.
-
-[1]: https://dev.to/rohitashsingh89/building-a-currency-converter-in-django-a-step-by-step-guide-560f?utm_source=chatgpt.com "Building a Currency Converter in Django: A Step-by-Step Guide"
-[2]: https://www.horilla.com/blogs/how-to-set-up-a-currency-converter-in-django/?utm_source=chatgpt.com "How to Set Up a Currency Converter in Django? | Blogs - Horilla"
-[3]: https://sengideons.com/django-currency-converter-project-guide/?utm_source=chatgpt.com "Build a Currency Converter with Python Django: Project Overview & Setup ..."
